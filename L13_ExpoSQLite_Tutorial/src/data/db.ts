@@ -1,4 +1,5 @@
 import { type SQLiteDatabase } from 'expo-sqlite';
+//only has typescript and no react native
 
 // NOTE - this file is a .ts instead of a .tsx because it ONLY has
 // typescript within it. The other files also have RN components (like <View>), 

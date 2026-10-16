@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { fetchItems, insertItem, type Item } from "../data/db";
+//defining how you would interact with data
 
 export default function App() {
   /**
@@ -74,6 +75,8 @@ export default function App() {
       console.log("Failed to fetch items", err);
     }
   };
+  //often will see async and await together
+  //trying to fetch items and while thats happening we're waiting
 
   /**
    * Save Item Function
@@ -187,6 +190,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    color: "hotpink",
   },
   input: {
     width: "100%",
