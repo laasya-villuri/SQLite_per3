@@ -126,6 +126,13 @@ export default function App() {
     }
   };
 
+  //used this link to learn how to use sort button:
+  //https://www.geeksforgeeks.org/typescript/typescript-sorting-array/
+  // create a sort numerical button that sorts the items in the array by increasing quantity
+  const sortNumIncr = () => {
+    items.sort((a, b) => a.quantity - b.quantity);
+  };
+
   /**
    * Start Edit Function
    *
@@ -220,6 +227,8 @@ export default function App() {
         title={editingId === null ? "Save Item" : "Update Item"}
         onPress={saveOrUpdate}
       />
+
+      <Button title="Sort" onPress={sortNumIncr} />
       <FlatList
         style={styles.list}
         data={items}

@@ -128,3 +128,5 @@ export const updateItem = async (
 export const deleteItem = async (db: SQLiteDatabase, id: number): Promise<void> => {
   await db.runAsync("DELETE FROM items WHERE id = ?;", [id]);
 };
+
+
