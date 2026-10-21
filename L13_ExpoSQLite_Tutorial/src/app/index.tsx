@@ -14,6 +14,7 @@ import {
   fetchItems,
   insertItem,
   deleteItem,
+  sortListIncr,
   updateItem,
   type Item,
 } from "../data/db";
@@ -85,6 +86,15 @@ export default function App() {
   //often will see async and await together
   //trying to fetch items and while thats happening we're waiting
 
+  // const sortItemsIncr = async = () =>{
+  //   try {
+  //     const value = await db.runAsync("SELECT * FROM items ORDER BY quantity")
+  //     setItems(value);
+  //   } catch (err) {
+  //     console.log("Failed to fetch items", err);
+  //   }
+  // }
+
   /**
    * Save or Update Item Function
    *
@@ -126,11 +136,16 @@ export default function App() {
     }
   };
 
-  //used this link to learn how to use sort button:
-  //https://www.geeksforgeeks.org/typescript/typescript-sorting-array/
+  // used this link to learn how to use sort button:
+  // https://www.geeksforgeeks.org/typescript/typescript-sorting-array/
   // create a sort numerical button that sorts the items in the array by increasing quantity
-  const sortNumIncr = () => {
-    items.sort((a, b) => a.quantity - b.quantity);
+  const sortNumIncr = async () => {
+    try {
+      await sortListIncr(db, parseInt(quantity, 10));
+      await loadItems();
+    } catch (err) {
+      console.log("Failed to Sort", err);
+    }
   };
 
   /**

@@ -110,6 +110,10 @@ export const updateItem = async (
   await db.runAsync("UPDATE items SET name = ?, quantity = ? WHERE id = ?;", [name, quantity, id]);
 };
 
+export const sortListIncr = async (db: SQLiteDatabase, quantity:number): Promise<void> => {
+  await db.runAsync("SELECT*FROM items ORDER BY quantity ASC", [quantity]);
+};
+
 /**
  * Delete Item
  * 
@@ -129,4 +133,6 @@ export const deleteItem = async (db: SQLiteDatabase, id: number): Promise<void> 
   await db.runAsync("DELETE FROM items WHERE id = ?;", [id]);
 };
 
-
+export const filterItems = async (db: SQLiteDatabase, quantity:number): Promise<void> => {
+  await db.runAsync("SELECT*FROM items WHERE quantity >500", [quantity]);
+};
