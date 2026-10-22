@@ -15,6 +15,7 @@ import {
   insertItem,
   deleteItem,
   sortListIncr,
+  sortListDecr,
   updateItem,
   type Item,
 } from "../data/db";
@@ -140,9 +141,22 @@ export default function App() {
   // https://www.geeksforgeeks.org/typescript/typescript-sorting-array/
   // create a sort numerical button that sorts the items in the array by increasing quantity
   const sortNumIncr = async () => {
+    console.log("Items before sort", items);
     try {
-      await sortListIncr(db, parseInt(quantity, 10));
-      await loadItems();
+      const sortedItems = await sortListIncr(db);
+      setItems(sortedItems);
+      console.log("Sorted results:", items);
+    } catch (err) {
+      console.log("Failed to Sort", err);
+    }
+  };
+
+  const sortNumDecr = async () => {
+    console.log("Items before sort", items);
+    try {
+      const sortedItems = await sortListDecr(db);
+      setItems(sortedItems);
+      console.log("Sorted results:", items);
     } catch (err) {
       console.log("Failed to Sort", err);
     }
@@ -243,7 +257,8 @@ export default function App() {
         onPress={saveOrUpdate}
       />
 
-      <Button title="Sort" onPress={sortNumIncr} />
+      <Button title="Sort By Increasing Quantities" onPress={sortNumIncr} />
+      <Button title="Sort By Decreasing Quantities" onPress={sortNumDecr} />
       <FlatList
         style={styles.list}
         data={items}

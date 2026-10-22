@@ -110,8 +110,17 @@ export const updateItem = async (
   await db.runAsync("UPDATE items SET name = ?, quantity = ? WHERE id = ?;", [name, quantity, id]);
 };
 
-export const sortListIncr = async (db: SQLiteDatabase, quantity:number): Promise<void> => {
-  await db.runAsync("SELECT*FROM items ORDER BY quantity ASC", [quantity]);
+//instead of returning void like the other functions 
+//I made this function return a value of type Item[]
+//So that it could be passed into setItems on index
+//Now it sorts the list in Ascending Order
+export const sortListIncr = async (db: SQLiteDatabase): Promise<Item[]> => {
+  return await db.getAllAsync("SELECT*FROM items ORDER BY quantity ASC");
+};
+
+//sortListDecr uses the same logic as sortListIncr but with DESC instead of ASC
+export const sortListDecr = async (db: SQLiteDatabase): Promise<Item[]> => {
+  return await db.getAllAsync("SELECT*FROM items ORDER BY quantity DESC");
 };
 
 /**
