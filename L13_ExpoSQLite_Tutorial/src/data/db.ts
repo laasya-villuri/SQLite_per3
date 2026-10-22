@@ -142,6 +142,6 @@ export const deleteItem = async (db: SQLiteDatabase, id: number): Promise<void> 
   await db.runAsync("DELETE FROM items WHERE id = ?;", [id]);
 };
 
-export const filterItems = async (db: SQLiteDatabase, quantity:number): Promise<void> => {
-  await db.runAsync("SELECT*FROM items WHERE quantity >500", [quantity]);
+export const filterLarge = async (db: SQLiteDatabase): Promise<Item[]> => {
+  return await db.getAllAsync("SELECT*FROM items WHERE quantity >500");
 };

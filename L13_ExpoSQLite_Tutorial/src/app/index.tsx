@@ -3,7 +3,6 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import {
   Alert,
-  Button,
   FlatList,
   StyleSheet,
   Text,
@@ -12,6 +11,7 @@ import {
 } from "react-native";
 import {
   fetchItems,
+  filterLarge,
   insertItem,
   deleteItem,
   sortListIncr,
@@ -19,6 +19,8 @@ import {
   updateItem,
   type Item,
 } from "../data/db";
+
+import Button from "@/components/Button";
 //defining how you would interact with data
 
 export default function App() {
@@ -162,6 +164,17 @@ export default function App() {
     }
   };
 
+  const filterLargeItems = async () => {
+    console.log("Items before filter", items);
+    try {
+      const largeItems = await filterLarge(db);
+      setItems(largeItems);
+      console.log("Sorted results:", items);
+    } catch (err) {
+      console.log("Failed to Sort", err);
+    }
+  };
+
   /**
    * Start Edit Function
    *
@@ -257,8 +270,10 @@ export default function App() {
         onPress={saveOrUpdate}
       />
 
-      <Button title="Sort By Increasing Quantities" onPress={sortNumIncr} />
-      <Button title="Sort By Decreasing Quantities" onPress={sortNumDecr} />
+      <Button title="Sort By Increasing" onPress={sortNumIncr} />
+      <Button title="Sort By Decreasing" onPress={sortNumDecr} />
+      <Button title="Filter Large" onPress={filterLargeItems} />
+      <Button title="Original List" onPress={loadItems} />
       <FlatList
         style={styles.list}
         data={items}
